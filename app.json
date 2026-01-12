@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Delta Mobile",
+    "slug": "Delta Mobile",
+    "version": "26.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/main_icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash_main_icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#101013"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive_main_icon.png",
+        "backgroundColor": "#101013"
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
+      "package": "com.nexabag.delta"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "46852109-34a9-4539-8574-677fdff8c1a1"
+      }
+    }
+  }
+}
