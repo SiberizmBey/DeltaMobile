@@ -3,6 +3,8 @@
     "name": "Delta Mobile",
     "slug": "delta-mobile",
     "version": "26.1.15",
+    "slug": "Delta Mobile",
+    "version": "26.1.14",
     "orientation": "portrait",
     "icon": "./assets/main_icon_resp.png",
     "userInterfaceStyle": "light",
