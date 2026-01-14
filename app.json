@@ -1,15 +1,10 @@
 {
   "expo": {
     "name": "Delta Mobile",
-<<<<<<< HEAD
     "slug": "delta-mobile",
-    "version": "26.1.12",
-=======
-    "slug": "Delta Mobile",
-    "version": "26.1.0",
->>>>>>> 3f43db8bb61e151b8e688c8172af043b5ee7f453
+    "version": "26.1.15",
     "orientation": "portrait",
-    "icon": "./assets/main_icon.png",
+    "icon": "./assets/main_icon_resp.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -36,7 +31,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a1241f7c-c9d6-410a-b39a-ba001b2f24da"
+        "projectId": ""
       }
     }
   }
