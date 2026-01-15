@@ -11,13 +11,27 @@ import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   FlaskConical, Scan, MessageCircle, User, Lock,
-  LogOut, ShieldCheck, Settings, Sun, Moon, Monitor
+  LogOut, ShieldCheck, Settings, Sun, Moon, Monitor, Instagram, X, Github
 } from 'lucide-react-native';
 import Constants from 'expo-constants';
 
 // --- NAVIGATOR TANIMLAMALARI (HATAYI ÇÖZEN KISIM) ---
 const Tab = createBottomTabNavigator();
 const ThemeContext = createContext();
+
+const otherApps = [
+  {
+    name: 'NexaVerse',
+    slug: 'NexaVerse-Mobile',
+    // Dosya adının 'nexa.png' olduğunu varsayıyorum, kendi dosya adınla değiştir.
+    icon: require('./assets/siskip.png')
+  },
+  { name: 'Asedia', slug: 'Asedia', icon: null },
+  { name: 'SİsKip', slug: 'SIsKip', icon: null },
+  { name: 'Mira', slug: 'Mira', icon: null },
+  { name: 'SeMira', slug: 'SeMira', icon: null },
+  { name: 'PyMira', slug: 'PyMira', icon: null },
+];
 
 // --- TEMA PALETLERİ ---
 const Themes = {
@@ -335,6 +349,7 @@ function ProfileScreen({ handleLogout }) {
 // --- BİLEŞENLER: AYARLAR (YENİ) ---
 function SettingsScreen({ handleLogout }) {
   const { theme, themeSetting, updateTheme } = useContext(ThemeContext);
+
   const options = [
     { id: 'system', label: 'Sistem Teması', icon: <Monitor size={20} color={theme.text} /> },
     { id: 'light', label: 'Aydınlık Mod', icon: <Sun size={20} color={theme.text} /> },
@@ -342,26 +357,160 @@ function SettingsScreen({ handleLogout }) {
     { id: 'amoled', label: 'AMOLED', icon: <ShieldCheck size={20} color={theme.text} /> },
   ];
 
+  const otherApps = [
+    { name: 'NexaVerse', slug: 'NexaVerse-Mobile' },
+    { name: 'Asedia', slug: 'Asedia' },
+    { name: 'SİsKip', slug: 'SIsKip' },
+    { name: 'Mira', slug: 'Mira' },
+    { name: 'SeMira', slug: 'SeMira' },
+    { name: 'PyMira', slug: 'PyMira' },
+  ];
+
   return (
     <SafeAreaView style={[styles.flex1, { backgroundColor: theme.background }]}>
-      <View style={styles.labsHero}><Text style={[styles.labsHeroTitle, { color: theme.text }]}>Ayarlar</Text></View>
-      <View style={{ paddingHorizontal: 20 }}>
-        <Text style={styles.sectionTitle}>Görünüm</Text>
-        {options.map(opt => (
-          <TouchableOpacity key={opt.id} style={[styles.menuItem, { backgroundColor: theme.card }, themeSetting === opt.id && { borderColor: theme.primary, borderWidth: 1 }]} onPress={() => updateTheme(opt.id)}>
-            {opt.icon}
-            <Text style={[styles.menuText, { color: theme.text }]}>{opt.label}</Text>
-          </TouchableOpacity>
-        ))}
-        <TouchableOpacity style={[styles.menuItem, { backgroundColor: theme.card, marginTop: 20 }]} onPress={handleLogout}>
-          <LogOut color={theme.primary} size={20} />
-          <Text style={[styles.menuText, { color: theme.primary }]}>Oturumu Kapat</Text>
-        </TouchableOpacity>
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.labsHero}>
+          <Text style={[styles.labsHeroTitle, { color: theme.text }]}>Ayarlar</Text>
+        </View>
+
+        <View style={{ paddingHorizontal: 20 }}>
+          <Text style={styles.sectionTitle}>Görünüm</Text>
+          {options.map(opt => (
+            <TouchableOpacity
+              key={opt.id}
+              style={[styles.menuItem, { backgroundColor: theme.card }, themeSetting === opt.id && { borderColor: theme.primary, borderWidth: 1 }]}
+              onPress={() => updateTheme(opt.id)}
+            >
+              {opt.icon}
+              <Text style={[styles.menuText, { color: theme.text }]}>{opt.label}</Text>
+            </TouchableOpacity>
+          ))}
+
+          {/* --- YENİ EKLENEN KISIM: DİĞER UYGULAMALAR --- */}
+          <Text style={[styles.sectionTitle, { marginTop: 30 }]}>Diğer Mobil Uygulamalarımız</Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+
+            {/* NEXAVERSE */}
+            <TouchableOpacity style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border }]} onPress={() => Linking.openURL('https://github.com/SiberizmBey/NexaVerse-Mobile')}>
+              <Image
+                source={{ uri: 'https://forum.nexabag.xyz/assets/img/nforum.png' }}
+                style={{ width: 30, height: 30, borderRadius: 10 }}
+              />
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>NexaVerse</Text>
+            </TouchableOpacity>
+
+            {/* ASEDIA */}
+            <TouchableOpacity style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border }]} onPress={() => Linking.openURL('https://github.com/SiberizmBey/Asedia')}>
+              <Image
+                source={{ uri: 'https://raw.githubusercontent.com/SiberizmBey/Asedia/main/assets/images/icon.png' }}
+                style={{ width: 30, height: 30, borderRadius: 10, backgroundColor: '#000' }}
+              />
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>Asedia</Text>
+            </TouchableOpacity>
+
+            {/* SİSKİP */}
+            <TouchableOpacity style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border }]} onPress={() => Linking.openURL('https://github.com/SiberizmBey/SIsKip')}>
+              <Image
+                source={{ uri: 'https://raw.githubusercontent.com/SiberizmBey/SisKip/main/assets/images/icon.png' }}
+                style={{ width: 30, height: 30, borderRadius: 10, backgroundColor: '#000' }}
+              />
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>SisKip</Text>
+            </TouchableOpacity>
+
+            {/* MIRA */}
+            <TouchableOpacity style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border }]} onPress={() => Linking.openURL('https://github.com/SiberizmBey/Mira')}>
+              <Image
+                source={{ uri: 'https://raw.githubusercontent.com/SiberizmBey/Mira/main/assets/images/icon.png' }}
+                style={{ width: 30, height: 30, borderRadius: 10, backgroundColor: '#000' }}
+              />
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>Mira</Text>
+            </TouchableOpacity>
+
+            {/* SEMIRA */}
+            <TouchableOpacity style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border }]} onPress={() => Linking.openURL('https://github.com/SiberizmBey/SeMira')}>
+              <Image
+                source={{ uri: 'https://raw.githubusercontent.com/SiberizmBey/SeMira/main/assets/images/icon.png' }}
+                style={{ width: 30, height: 30, borderRadius: 10, backgroundColor: '#000' }}
+              />
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>SeMira</Text>
+            </TouchableOpacity>
+
+            {/* PYMIRA */}
+            <TouchableOpacity style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border }]} onPress={() => Linking.openURL('https://github.com/SiberizmBey/PyMira')}>
+              <Image
+                source={{ uri: 'https://raw.githubusercontent.com/SiberizmBey/PyMira/main/assets/images/icon.png' }}
+                style={{ width: 30, height: 30, borderRadius: 10, backgroundColor: '#000' }}
+              />
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>PyMira</Text>
+            </TouchableOpacity>
+
+          </View>
+          {/* ------------------------------------------ */}
+
+          {/* Bizi Takip Edin Bölümü */}
+          <Text style={[styles.sectionTitle, { marginTop: 30 }]}>Bizi Takip Edin</Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 150 }}>
+
+            {/* INSTAGRAM */}
+            <TouchableOpacity
+              style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border }]}
+              onPress={() => Linking.openURL('https://instagram.com/nexabag.media')}
+            >
+              <View style={{ width: 30, height: 30, borderRadius: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E1306C' }}>
+                <Instagram size={20} color="#fff" />
+              </View>
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>Instagram</Text>
+            </TouchableOpacity>
+
+            {/* X (TWITTER) */}
+            <TouchableOpacity
+              style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border }]}
+              onPress={() => Linking.openURL('https://x.com/SiberizmBey')}
+            >
+              <View style={{ width: 30, height: 30, borderRadius: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000' }}>
+                <X size={20} color="#fff" />
+                {/* Not: Eğer Twitter ikonu yerine X istersen kütüphaneden 'X' olarak import edebilirsin */}
+              </View>
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>X / Twitter</Text>
+            </TouchableOpacity>
+
+            {/* GitHub (TWITTER) */}
+            <TouchableOpacity
+              style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border }]}
+              onPress={() => Linking.openURL('https://x.com/SiberizmBey')}
+            >
+              <View style={{ width: 30, height: 30, borderRadius: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000' }}>
+                <Github size={20} color="#fff" />
+                {/* Not: Eğer Twitter ikonu yerine X istersen kütüphaneden 'X' olarak import edebilirsin */}
+              </View>
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>GitHub</Text>
+            </TouchableOpacity>
+
+            {/* NEXABAG FORUM */}
+            <TouchableOpacity
+              style={[styles.appBadge, { backgroundColor: theme.card, borderColor: theme.border
+               }]}
+              onPress={() => Linking.openURL('https://forum.nexabag.xyz/profile.php?id=NexaBAGStudi')}
+            >
+              <View style={{ width: 30, height: 30, borderRadius: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.background, overflow: 'hidden' }}>
+                <Image
+                  source={{ uri: 'https://forum.nexabag.xyz/assets/img/nforum.png' }} // Buraya kendi ikon URL'ni yapıştır
+                  style={{ width: 30, height: 30, resizeMode: 'contain' }}
+                />
+              </View>
+              <Text style={[styles.appBadgeText, { color: theme.text }]}>NexaVerse</Text>
+            </TouchableOpacity>
+
+          </View>
+          {/* <TouchableOpacity style={[styles.menuItem, { backgroundColor: theme.card, marginTop: 30, marginBottom: 150 }]} onPress={handleLogout}>
+            <LogOut color={theme.primary} size={20} />
+            <Text style={[styles.menuText, { color: theme.primary }]}>Oturumu Kapat</Text>
+          </TouchableOpacity> */}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
-
 // --- ANA UYGULAMA (APP.JS) ---
 export default function App() {
   const systemScheme = useColorScheme(); // Cihazın temasını izler
@@ -477,6 +626,7 @@ export default function App() {
             headerShown: false,
             tabBarStyle: {
               position: 'absolute', bottom: 30, marginLeft: 40, marginRight: 40, paddingTop: 5,
+              paddingLeft: 10, paddingRight: 10,
               height: 65, backgroundColor: theme.card, borderRadius: 35,
               borderWidth: 1, borderColor: theme.border, elevation: 15,
             },
@@ -488,7 +638,7 @@ export default function App() {
           <Tab.Screen name="Tarayıcı" options={{ tabBarIcon: ({ color }) => <Scan color={color} size={24} /> }}>
             {() => <QRScannerScreen handleLogout={handleLogout} scanned={scanned} handleBarCodeScanned={handleBarCodeScanned} />}
           </Tab.Screen>
-          
+
           <Tab.Screen name="Sosyal" component={SocialScreen} options={{ tabBarIcon: ({ color }) => <MessageCircle color={color} size={24} /> }} />
           <Tab.Screen
             name="Profil"
@@ -496,7 +646,7 @@ export default function App() {
           >
             {() => <ProfileScreen handleLogout={handleLogout} />}
           </Tab.Screen>
-          
+
           <Tab.Screen name="Ayarlar" options={{ tabBarIcon: ({ color }) => <Settings color={color} size={24} /> }}>
             {() => <SettingsScreen handleLogout={handleLogout} />}
           </Tab.Screen>
@@ -565,4 +715,38 @@ const styles = StyleSheet.create({
   updateTitle: { color: '#fff', fontWeight: 'bold', fontSize: 14 },
   updateSub: { color: 'rgba(255,255,255,0.7)', fontSize: 11, marginTop: 4 },
   upToDateBox: { alignItems: 'center', paddingVertical: 5 },
+  otherAppsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginTop: 5,
+  },
+  appBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 15,
+    borderWidth: 1,
+    width: '48%',
+    marginBottom: 10,
+  },
+  appIconPlaceholder: {
+    width: 32,
+    height: 32,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  appIconImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 30,
+  },
+  appBadgeText: {
+    marginLeft: 10,
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
 });
